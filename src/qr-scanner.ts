@@ -653,7 +653,7 @@ class QrScanner {
                 .catch(() => true);
         if (isChromiumOnMacWithArmVentura) return createWorker();
 
-        return new BarcodeDetector({ formats: ['qr_code'] });
+        return new BarcodeDetector();
     }
 
     private _onPlay(): void {
@@ -977,7 +977,10 @@ class QrScanner {
             }
         }
 
-        const context = canvas.getContext('2d', { alpha: false })!;
+        const context = canvas.getContext('2d', {
+            alpha: false,
+            willReadFrequently: true
+        })!;
         context.imageSmoothingEnabled = false; // gives less blurry images
         context.drawImage(
             image,
